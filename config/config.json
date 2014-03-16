@@ -1,0 +1,14 @@
+{
+	"development": {
+		"port"   : 3000,
+		"mongoDB": {
+			"host": "",
+			"port": "",
+			"db"  : ""
+		}
+	},
+	"production" : {
+
+	}
+
+}
