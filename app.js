@@ -10,11 +10,9 @@ var app = express();
 require('./config/express')(app);
 
 // Controllers
-var routes = require('./controllers');
 var user = require('./controllers/user');
 
 // Routes and Controllers
-app.get('/', routes.index);
 app.get('/users', user.list);
 
 http.createServer(app).listen(app.get('port'), function () {

@@ -11,8 +11,9 @@ module.exports = function (app) {
 	app.use(express.json());
 	app.use(express.urlencoded());
 	app.use(express.methodOverride());
-	app.use(express.cookieParser('s3cr3t')); // not really secure
-	app.use(express.session());
+	app.use(express.cookieParser('s3cr3t')); // not really secure yet
+	app.use(express.session()); // Also needs to be more configured
 	app.use(app.router);
-	app.use(express.static(path.join(__dirname, 'public')));
+	app.use(express.static(path.join(__dirname, 'public'))); // deliver all js, imgs and css
+	app.use(express.static(path.join(__dirname, 'views'))); // just deliver the views
 };
