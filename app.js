@@ -1,6 +1,6 @@
 // Basic packages
 var express = require('express'),
-	http = require('http');
+	https = require('https');
 
 // Create the app
 var app = express();
@@ -14,6 +14,6 @@ var user = require('./controllers/user');
 // Routes and Controllers
 app.get('/users', user.list);
 
-http.createServer(app).listen(app.get('port'), function () {
+https.createServer(app).listen(app.get('port'), function () {
 	console.log('Express server listening on port ' + app.get('port'));
 });
