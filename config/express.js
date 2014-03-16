@@ -1,7 +1,8 @@
 /**
  * Created by David on 16.03.14.
  */
-var express = require('express');
+var express = require('express'),
+	path = require('path');
 
 
 module.exports = function (app) {

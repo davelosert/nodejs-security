@@ -1,7 +1,6 @@
 // Basic packages
 var express = require('express'),
-	http = require('http'),
-	path = require('path');
+	http = require('http');
 
 // Create the app
 var app = express();
