@@ -31,15 +31,19 @@ module.exports = function (app) {
 		res.locals.csrfToken = req.csrfToken();
 		next();
 	});
+	// Another, more insecure way of preventing CSRF-Attacks is to check the referrer. However, this is not 100%
+	// Secure since the referer can be manipulated / is empty in HTTPS
 
 	/**
-	 * Since we are using https, redirecit all http-calls diectly to the app.
+	 * Since we are using https, redirect all http-calls to https
 	 */
 	app.use(function (req, res, next) {
 		if (!req.secure) {
 			return res.redirect(['https://', req.get('Host'), req.url].join(''));
 		}
-		next();
+		else {
+			next();
+		}
 	});
 
 
