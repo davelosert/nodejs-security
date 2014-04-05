@@ -12,11 +12,12 @@ module.exports = function (app) {
 	app.use(express.json());
 	app.use(express.urlencoded());
 	app.use(express.methodOverride());
+
 	// Use the cookieParser BEFORE Session, since Session is using the cookie-parser.
 	app.use(express.cookieParser('s3cr3t'));
 	app.use(express.session({
 		secret: 's3cr3t',
-		key   : 'sessionId', // use generic session-cookie name, else it would be "connectSid", telling an attacker again the used framework
+		key: 'sessionId', // use generic session-cookie name, else it would be "connectSid", revealing your used framework
 		cookie: {
 			httpOnly: true, // Make Cookies not accessible by frontend-JS
 			secure  : true, // Only allow cookies on https
