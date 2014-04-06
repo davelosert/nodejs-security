@@ -27,7 +27,7 @@ app.get('wrong/hpp/type', doNot.trustParameterTypes);
 app.get('/right/inputCheck', better.checkTypeOfInputParameters);
 
 app.get('wrong/hpp/array', doNot.passParametersAsArray);
-app.get('/right/hpp/object', better)
+app.get('/right/hpp/object', better.passParametersAsObject);
 
 http.createServer(app).listen(app.get('port'), function () {
 	console.log('Express server listening on port ' + app.get('port'));
