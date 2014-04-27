@@ -11,7 +11,7 @@ var express = require('express'),
 
 
 module.exports = function (app) {
-	app.set('port', process.env.PORT || 3000);
+	app.set('port', process.env.PORT || 6665);
 	app.disable('x-powered-by'); // Disable the x-powered-by header in http request to prevent that an attacker knows your backend-framework easily.
 	app.use(bodyParser());
 	app.use(methodOverride());
