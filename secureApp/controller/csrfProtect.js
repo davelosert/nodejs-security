@@ -34,7 +34,7 @@ module.exports = function (app) {
 
     return {
         // We need an initial GET - Request to Store the token
-        requestToStoreFirstCSRFToken: function () {
+        requestToStoreFirstCSRFToken: function (req, res) {
             res.send(200, 'You own now a CSRF-Token');
         },
         useOnlyHTTPVerbsForStateChanges: function (req, res, next) {

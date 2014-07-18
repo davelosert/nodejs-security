@@ -10,6 +10,9 @@ module.exports = function (app) {
     var csrf = require('./controller/csrfProtect')(app);
 
 
+    app.get('/', function (req, res) {
+       res.send(200, 'Server is running and listening on Port ' + app.get('port'));
+    });
     /**
      * Injection
      */

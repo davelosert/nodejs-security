@@ -11,12 +11,11 @@ var express = require('express'),
     http = require('http');
 
 var appSecure = express();
+appSecure.set('port', 3333);
 
 require('./config/secure_express')(appSecure);
 require('./routes')(appSecure);
 
 
 // Create the secure server
-module.exports = appSecure.listen(appSecure.get('port'), function () {
-    console.log('Secure Express server listening on port ' + appSecure.get('port'));
-});
+module.exports = appSecure;
