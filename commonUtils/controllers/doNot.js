@@ -14,7 +14,7 @@ exports.mutateStateOnGetRequests = function (req, res) {
 	var action = req.body.action;
 	var id = req.body.id;
 
-}
+};
 
 /**
  * TYPE: HPP (HTTP PARAMETER POLUTION)
@@ -48,7 +48,7 @@ exports.trustParameterTypes = function (req, res) {
 	}, 0);
 
 	// @todo Show Threat of Mutuating APP-State e.g. by letting App safe Array instead of String in MongoDB
-}
+};
 
 /**
  * TYPE: HPP (HTTP PARAMETER POLUTION)
@@ -58,6 +58,4 @@ exports.trustParameterTypes = function (req, res) {
  */
 exports.passParametersAsArray = function (req, res) {
 	var requestParams = req.body
-
-
-}
+};

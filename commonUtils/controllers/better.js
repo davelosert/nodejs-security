@@ -9,7 +9,7 @@ exports.useOnlyHTTPVerbsForStateChanges = function (req, res, next) {
 	// At this Point, our CSRF-Middleware will already have verified the request and you can therefore trust it to be
 	// coming from your own site
 	res.send(200, 'Everything´s safe!');
-}
+};
 
 
 /**
@@ -31,8 +31,8 @@ exports.checkTypeOfInputParameters = function (req, res, next) {
 		res.send(200, 'Everything´s safe!');
 	}
 
-}
+};
 
 exports.passParametersAsObject = function (req, res) {
 
-}
+};
