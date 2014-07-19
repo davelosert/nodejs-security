@@ -11,10 +11,9 @@ var request = require('supertest'),
     expect = chai.expect;
 chai.use(sinonChai);
 
-var express = require('express');
 describe('#csrfProtection', function () {
-    var secureServer = request('../../../secureApp/server.');
-    console.log(secureServer);
+	var app = require('../../../secureApp/server_secure');
+	var secureServer = request(app);
     it('should set a csrf-cookie on a normal get-request', function (done) {
         secureServer
            .get('/')
@@ -24,6 +23,6 @@ describe('#csrfProtection', function () {
     it('should not let a request without a token pass', function (done) {
        secureServer
            .post('/csrf')
-           .expect(500, done);
+		   .expect(403, done);
     });
 });
