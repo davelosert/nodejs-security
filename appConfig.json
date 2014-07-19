@@ -1,0 +1,8 @@
+{
+	"appSecure"  : {
+		"port": 3333
+	},
+	"appInsecure": {
+		"port": 3334
+	}
+}
