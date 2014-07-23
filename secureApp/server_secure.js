@@ -19,5 +19,5 @@ require('./routes')(appSecure);
 // Create the secure server
 module.exports = appSecure;
 appSecure.listen(appSecure.get('port'), function () {
-	console.log('Server listening on port ' + app.get('port'));
+	console.log('Server listening on port ' + appSecure.get('port'));
 });
