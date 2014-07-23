@@ -6,7 +6,7 @@
  * What it is
  * ===========
  * A CSRF-Attack describes an attack by which the valid Session of a User is used to let him do an unwanted action by tricking him into
- * sending an unwanted request. For example: You have defined a route in your app like http://myApp/deleteProfile.
+ * sending an unwanted request. For example: You have defined a route in your app like #DEL "http://myApp/deleteProfile"
  *
  * !IMPORTANT!
  * Even with CSRF-Proection, you should never mutate the State of your app in a get-request (e.g. store to DB, authenticate or whatsoever).
@@ -28,7 +28,7 @@ var csrf = require('csurf');
 module.exports = function (app) {
     app.use(csrf());
     app.use(function (req, res, next) {
-        res.locals.csrfToken = req.csrfToken();
+		res.cookie('XSRF-TOKEN', req.csrfToken());
         next();
     });
 
