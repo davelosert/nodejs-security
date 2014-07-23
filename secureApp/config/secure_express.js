@@ -1,5 +1,5 @@
 /**
- * Created with IntelliJ IDEA.
+ * Web-Server (express) related Configurations, mainly integration and configuration of middleware
  * User: david.losert
  * Date: 18.07.2014
  * Time: 14:45
