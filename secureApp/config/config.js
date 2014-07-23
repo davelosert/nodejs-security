@@ -5,13 +5,17 @@
  * Time: 15:44
  */
 
+var config = {
+	'development': {
+		'mongoDB': {
 
-module.exports = function (env) {
-    if(env == 'dev'){
-        return {
+		}
+	},
+	'test'       : {
+		'mongoDB': {
 
-        }
-    } else if (env === 'PRODUCTION') {
+		}
+	}
+}
 
-    }
-};
+module.exports = config[process.env.NODE_ENV || 'development'];
