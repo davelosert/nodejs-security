@@ -62,8 +62,8 @@ module.exports = function (app) {
     /**
      * Missing Function Level Access Controll
      */
-	app.get('/mflac/data', mflac.getData);
-	app.get('/mflac/restrictedData', mflac.getRestrictedData);
+	app.get('/mflac/data', mflac.data);
+	app.get('/mflac/restrictedData', mflac.restrictedData);
 
 
     /**
