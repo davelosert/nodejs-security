@@ -11,13 +11,14 @@
 
 module.exports = function (app) {
 	var csrf = require('./controller/csrfProtect')(app),
+		mflac = require('./controller/mflacProtect')(app),
 		hpp = require('./controller/hppProtect')(app);
 
 	/**
 	 * GENERIC ROUTES
 	 */
 	app.get('/', function (req, res) {
-		res.send(200, 'Server is running and listening on Port ' + app.get('port'));
+		res.send(200, 'Secure server is running and listening on Port ' + app.get('port'));
 	});
 
 	app.get('/login', function (req, res) {
@@ -71,7 +72,8 @@ module.exports = function (app) {
 	/**
 	 * Missing Function Level Access Controll
 	 */
-
+	app.get('/mflac/data', mflac.getData);
+	app.get('/mflac/restrictedData', mflac.getRestrictedData);
 
 	/**
 	 * CSRF
