@@ -12,7 +12,6 @@
 module.exports = function (app) {
 	var csrf = require('./controller/csrfProtect')(app),
 		mflac = requireSecure('./controller/mflacProtect'),
-		mflac = require('./controller/mflacProtect')(app),
         unvalidatedRedirects = require('./controller/unvalidatedRedirects')(app),
 		hpp = require('./controller/hppProtect')(app),
         user = require('./controller/createUserProtected')(app);
