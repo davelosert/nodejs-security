@@ -13,7 +13,7 @@ module.exports = function (app) {
 	var csrf = require('./controller/csrfProtect')(app),
 		mflac = require('./controller/mflacProtect')(app),
         unvalidatedRedirects = require('./controller/unvalidatedRedirects')(app),
-		hpp = require('./controller/hppProtect')(app);
+		hpp = require('./controller/hppProtect')(app),
         user = require('./controller/createUserProtected')(app);
 
 	/**
@@ -49,6 +49,8 @@ module.exports = function (app) {
 	/**
 	 * Broken Authentication and Session Management
 	 */
+
+    app.get('/user', user.checkLogInState);
 
 
 	/**

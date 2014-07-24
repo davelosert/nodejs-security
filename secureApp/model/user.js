@@ -6,6 +6,7 @@ var bcrypt = require('bcrypt');
 
 var Schema = mongoose.Schema;
 
+
 SALT_WORK_FACTOR = 10;
 
 var userSchema = new Schema({
@@ -14,6 +15,7 @@ var userSchema = new Schema({
 	salt    : String
 });
 
+//Salt pw and save it to the db
 userSchema.pre('save', function(next) {
     var user = this;
 
@@ -34,6 +36,7 @@ userSchema.pre('save', function(next) {
     });
 });
 
+//Compare PW with the salts
 userSchema.methods.comparePassword = function(candidatePassword, cb) {
     bcrypt.compare(candidatePassword, this.pwHash, function(err, isMatch) {
         if (err) return cb(err);
