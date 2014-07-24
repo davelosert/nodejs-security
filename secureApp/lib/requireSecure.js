@@ -23,15 +23,13 @@ module.exports = function (modulePath) {
 
 	var obj = require(absoluteModulePath)();
 	_.forEach(obj, function(func, funcName) {
-		aop.before(obj, funcName, function(req, res, next) {
-			var principal = mflacConfig.extractPrincipal(req);
+		aop.before(obj, funcName, function(req, res, next) { // TODO this is to specific. How can we handle varargs?
+			var principal = mflacConfig.extractPrincipal(req); // TODO how can we make this more loosely coupled?
 			var whiteList = mflacConfig.functionAccessWhiteList[funcName];
 			console.log("Authorisation access controll for function " + funcName + " and principal " + principal +". AccessList is " + whiteList);
 			var accessGranted = _.contains(whiteList, principal);
 			if(!accessGranted) {
-				// next(new Error('ACCESS denied'));
-				throw new Error("ACCESS denied"); // TODO this causes a HTTP 500. Find a way to
-				// res.send(401);
+				throw new Error("ACCESS denied"); // TODO this causes a HTTP 500. Find a way to handle it and turn it to a HTTP 401
 			}
 		});
 	});
