@@ -11,7 +11,8 @@
 
 module.exports = function (app) {
 	var csrf = require('./controller/csrfProtect')(app),
-		hpp = require('./controller/hppProtect')(app);
+		hpp = require('./controller/hppProtect')(app),
+        user = require('./controller/createUserProtected')(app);
 
 	/**
 	 * GENERIC ROUTES
@@ -46,9 +47,11 @@ module.exports = function (app) {
 	/**
 	 * Broken Authentication and Session Management
 	 */
+    app.get('/user', user.checkLogInState);
 
 
-	/**
+
+    /**
 	 * XSS
 	 */
 

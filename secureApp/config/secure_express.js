@@ -12,7 +12,8 @@ var express = require('express'),
 	session = require('express-session'),
 	methodOverride = require('method-override'),
 	mongoStore = require('connect-mongo')(session),
-	mongoose = require('mongoose');
+	mongoose = require('mongoose'),
+    bcrypt = require('bcrypt');
 
 var config = require('./config');
 module.exports = function (app) {
