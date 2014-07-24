@@ -8,13 +8,14 @@
 // *************************
 // Load Basic Packages & Config
 // *************************
-var express = require('express'),
-	http = require('http'),
-	url = require('url'),
-	fs = require('fs'),
-	path = require('path'),
-	_ = require('lodash'),
-	mongoose = require('mongoose');
+var express = require('express')
+	,http = require('http')
+	,url = require('url')
+	,fs = require('fs')
+	,path = require('path')
+	,_ = require('lodash')
+	//,mongoose = require('mongoose')
+	;
 
 var config = require('./config/config');
 
@@ -38,7 +39,7 @@ var mongoURL = url.format({
 });
 
 // Connect MongoDB
-mongoose.connect(mongoURL, function (err) {
+/*mongoose.connect(mongoURL, function (err) {
 	if (err) {
 		console.error('Mongo-Connection Failed with error:', err);
 	}
@@ -55,7 +56,7 @@ var testUser = new User({
 
 // save user to database
 testUser.save(function(err) {});
-
+*/
 
 // *************************
 // APPLICATION SETUP
