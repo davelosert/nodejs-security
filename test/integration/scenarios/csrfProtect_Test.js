@@ -11,9 +11,13 @@ var request = require('supertest'),
 	expect = chai.expect;
 chai.use(sinonChai);
 
+var Cookie = require('tough-cookie'),
+	_ = require('lodash');
+
 describe('#csrfProtection', function () {
-	var secureServer;
 	var app = require('../../../secureApp/server_secure');
+
+	var secureServer;
 	before(function () {
 		secureServer = request(app);
 	});
@@ -30,8 +34,20 @@ describe('#csrfProtection', function () {
 			.expect(403, done);
 	});
 
-	xit('should let a post request pass with the right token', function (done) {
+	it('should let a post request pass with the right token', function (done) {
+		secureServer
+			.get('/')
+			.end(function (err, res) {
+				var csrfCookie = Cookie.parse(res.headers['set-cookie'][0]);
 
+				secureServer
+					.post('/csrf')
+					.send({'_csrf': csrfCookie.value})
+					.set('x-csrf-token', csrfCookie.value)
+					.end(function (err, res) {
+						expect(res.status).to.be(200);
+					});
+			});
 	});
 
 });
