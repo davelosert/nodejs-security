@@ -22,9 +22,7 @@ module.exports = function (app) {
             var pw = req.query.pw;
             User = require('../model/user');
 
-            console.log(pw);
-
-            // fetch user and test password verification
+            // fetch user, if user exist check if pw is correct.
             User.findOne({ username:  username123}, function(err, user) {
                 if(!user) {res.send(200, 'USER NOT FOUND'); return;}
                 user.comparePassword(pw, function (err, isMatch) {
