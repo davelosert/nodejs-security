@@ -22,20 +22,29 @@ module.exports = function (app) {
             var pw = req.query.pw;
             User = require('../model/user');
 
-            // fetch user, if user exist check if pw is correct.
-            User.findOne({ username:  username123}, function(err, user) {
-                if(!user) {res.send(200, 'USER NOT FOUND'); return;}
-                user.comparePassword(pw, function (err, isMatch) {
-                    if(isMatch) {
-                        res.send(200, 'PW Correct');
-                    }
-                    else
-                    {
-                        res.send(200, 'Incorrect');
+            // attempt to authenticate user
+            User.getAuthenticated(username123, pw, function(err, user, reason) {
+                if (err) throw err;
 
-                    }
+                // login was successful if we have a user
+                if (user) {
+                    // handle login success
+                    console.log('login success');
+                    res.send(200, 'Login Success');
+                    return;
+                }
 
-                });
+                // otherwise we can determine why we failed
+                var reasons = User.failedLogin;
+                switch (reason) {
+                    case reasons.NOT_FOUND:
+                    case reasons.PASSWORD_INCORRECT:
+                        res.send(200, 'Wrong LoginDates');
+                        break;
+                    case reasons.MAX_ATTEMPTS:
+                        res.send(200, 'Too much wrong logins');
+                        break;
+                }
             });
         }
     };
