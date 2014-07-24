@@ -1,24 +1,25 @@
 {
-  "name": "NodeJS-Security",
-  "version": "0.0.1",
-  "private": true,
-  "scripts": {
-    "start": "node processControll.js"
-  },
-  "dependencies": {
-    "body-parser": "^1.0.2",
-    "cookie-parser": "^1.0.1",
-    "csurf": "^1.1.0",
-    "express": "^4.*.*",
-    "express-session": "^1.0.3",
-    "method-override": "^1.0.0",
-    "underscore": "^1.6.0"
-  },
-  "devDependencies": {
-    "chai": "^1.9.1",
-    "mocha": "^1.20.1",
-    "sinon": "^1.10.3",
-    "sinon-chai": "^2.5.0",
-    "supertest": "^0.13.0"
-  }
+	"name"           : "NodeJS-Security",
+	"version"        : "0.0.1",
+	"private"        : true,
+	"scripts"        : {
+		"start": "node processControll.js"
+	},
+	"dependencies"   : {
+		"body-parser"    : "^1.0.2",
+		"cookie-parser"  : "^1.0.1",
+		"csurf"          : "^1.1.0",
+		"express"        : "^4.*.*",
+		"express-session": "^1.0.3",
+		"method-override": "^1.0.0",
+		"underscore"     : "^1.6.0"
+	},
+	"devDependencies": {
+		"chai"      : "^1.9.1",
+		"mocha"     : "^1.20.1",
+		"mongoose"  : "^3.8.13",
+		"sinon"     : "^1.10.3",
+		"sinon-chai": "^2.5.0",
+		"supertest" : "^0.13.0"
+	}
 }

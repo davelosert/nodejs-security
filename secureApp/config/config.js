@@ -8,14 +8,19 @@
 var config = {
 	'development': {
 		'mongoDB': {
-
+			host  : 'localhost',
+			port  : 27017,
+			dbName: 'secureApp'
 		}
 	},
 	'test'       : {
 		'mongoDB': {
+			host  : 'localhost',
+			port  : 27017,
+			dbName: 'secureApp_Test'
 
 		}
 	}
-}
+};
 
 module.exports = config[process.env.NODE_ENV || 'development'];
