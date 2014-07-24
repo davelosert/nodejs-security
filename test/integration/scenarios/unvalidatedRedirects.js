@@ -8,7 +8,7 @@ var request = require('supertest'),
 	expect = chai.expect;
 chai.use(sinonChai);
 
-xdescribe('#unvalidatedRedirects', function () {
+describe('#unvalidatedRedirects', function () {
 	var app = require('../../../secureApp/server_secure');
 
 	var secureServer;
@@ -18,12 +18,16 @@ xdescribe('#unvalidatedRedirects', function () {
 
 	it('should restrict redirects to non-whitelist-urls', function (done) {
 		secureServer
-			.get('')
+			.get('/unvalidatedRedirects')
+			.query({url: 'www.notallowedUrl.com'})
 			.expect(400, done)
 	});
 
 	it('should redirect on whitelist-urls', function (done) {
-
+		secureServer
+			.get('/unvalidatedRedirects')
+			.query({url: 'www.google.de'})
+			.expect(200, done)
 	});
 
 });
