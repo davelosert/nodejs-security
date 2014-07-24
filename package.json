@@ -15,7 +15,6 @@
 		"lodash"         : "^2.4.1",
 		"method-override": "^1.0.0",
 		"mongoose"       : "^3.8.13",
-		"bcrypt"         : "^0.7.8",
 		"node-aop"       : "^0.1.0"
 	},
 	"devDependencies": {

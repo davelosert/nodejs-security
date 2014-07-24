@@ -2,7 +2,7 @@
  * Created by David on 24.07.14.
  */
 var mongoose = require('mongoose');
-var bcrypt = require('bcrypt');
+//var bcrypt = require('bcrypt');
 
 var Schema = mongoose.Schema;
 
@@ -23,7 +23,7 @@ userSchema.pre('save', function(next) {
     if (!user.isModified('pwHash')) return next();
 
     // generate a salt
-    bcrypt.genSalt(SALT_WORK_FACTOR, function(err, salt) {
+    /*bcrypt.genSalt(SALT_WORK_FACTOR, function(err, salt) {
         if (err) return next(err);
 
         // hash the password using our new salt
@@ -34,13 +34,15 @@ userSchema.pre('save', function(next) {
             next();
         });
     });
+	*/
 });
 
 //Compare PW with the salts
 userSchema.methods.comparePassword = function(candidatePassword, cb) {
-    bcrypt.compare(candidatePassword, this.pwHash, function(err, isMatch) {
+    /*bcrypt.compare(candidatePassword, this.pwHash, function(err, isMatch) {
         if (err) return cb(err);
         cb(null, isMatch);
     });
+    */
 };
 module.exports = mongoose.model('User', userSchema);

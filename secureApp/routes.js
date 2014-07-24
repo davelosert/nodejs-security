@@ -11,11 +11,12 @@
 var requireSecure = require('./lib/requireSecure');
 
 module.exports = function (app) {
-	var csrf = require('./controller/csrfProtect')(app),
-		mflac = requireSecure('./controller/mflacProtect'),
-        unvalidatedRedirects = require('./controller/unvalidatedRedirects')(app),
-		hpp = require('./controller/hppProtect')(app),
-        user = require('./controller/createUserProtected')(app);
+	var csrf = require('./controller/csrfProtect')(app)
+		,mflac = requireSecure('./controller/mflacProtect')
+		,unvalidatedRedirects = require('./controller/unvalidatedRedirects')(app)
+		,hpp = require('./controller/hppProtect')(app)
+		//,user = require('./controller/createUserProtected')(app)
+		;
 
 	/**
 	 * GENERIC ROUTES
@@ -50,8 +51,7 @@ module.exports = function (app) {
 	/**
 	 * Broken Authentication and Session Management
 	 */
-
-    app.get('/user', user.checkLogInState);
+    //app.get('/user', user.checkLogInState);
 
 
 	/**
