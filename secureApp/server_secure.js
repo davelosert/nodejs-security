@@ -8,7 +8,7 @@
 
 // Basic packages
 var express = require('express'),
-    http = require('http');
+	http = require('http');
 
 var appSecure = express();
 appSecure.set('port', process.env.port || 3334);
@@ -19,5 +19,5 @@ require('./routes')(appSecure);
 // Create the secure server
 module.exports = appSecure;
 appSecure.listen(appSecure.get('port'), function () {
-	console.log('Server listening on port ' + appSecure.get('port'));
+	console.log('Secure Server listening on port ' + appSecure.get('port'));
 });

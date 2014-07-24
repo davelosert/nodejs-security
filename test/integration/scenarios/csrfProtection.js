@@ -5,24 +5,32 @@
  * Time: 16:11
  */
 var request = require('supertest'),
-    chai = require("chai"),
-    sinon = require("sinon"),
-    sinonChai = require("sinon-chai"),
-    expect = chai.expect;
+	chai = require("chai"),
+	sinon = require("sinon"),
+	sinonChai = require("sinon-chai"),
+	expect = chai.expect;
 chai.use(sinonChai);
 
 describe('#csrfProtection', function () {
 	var app = require('../../../secureApp/server_secure');
 	var secureServer = request(app);
-    it('should set a csrf-cookie on a normal get-request', function (done) {
-        secureServer
-           .get('/')
-           .expect(200, done);
-    });
 
-    it('should not let a request without a token pass', function (done) {
-       secureServer
-           .post('/csrf')
-		   .expect(403, done);
-    });
+
+	it('should set a csrf-cookie on a normal get-request', function (done) {
+		secureServer
+			.get('/')
+			.expect('set-cookie', new RegExp(/XSRF-TOKEN=.*; Path=\//gi))
+			.expect(200, done);
+	});
+
+	it('should not let a request without a token pass', function (done) {
+		secureServer
+			.post('/csrf')
+			.expect(403, done);
+	});
+
+	xit('should let a post request pass with the right token', function (done) {
+
+	});
+
 });

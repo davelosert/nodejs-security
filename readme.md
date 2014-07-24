@@ -10,6 +10,19 @@ learning and teaching at the same time.
 The long-term goal could maybe be a Project-Boilerplate for a NodeJS-App that already covers most of the OWASP-Top-10
 security risks by design.
 
+STRUCTRUE
+================
+Currently, there are two separate Apps: **secureApp** and **insecureApp**. The architecture of both apps is exactly the same, the difference is that 
+in *secureApp*, every security-whole and leak should be filled, while *insecureApp* is a playground to show the dangers and effects of those leaks.
+Therefore, the main work needs to be done wtihin the *secureApp*-Application. The task of each file within the app are as follows:
+
+* **server_secure.js** - the main server-file and entry-script, initialising the http server and combining config and routes
+* **routes.js** - Within here, the routes for every request is combined with a responsobile Controller. The routes are structured by the security-risk they prevent, 
+within a comment there should be a minor summary
+* **controller.js** - Here the magic happens. Every protection in configuration or directly within the route itself is implemented along an example request.
+Every step of the chosen Protection-Technique should be explained in detail within the comments
+* **express-config** - Every express-related configuration / middleware that is necessary for a running server 
+* **config.js** - Project-related configurations (like Database-Connections)
 
 PLANS & IDEAS
 =================

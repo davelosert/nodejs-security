@@ -1,5 +1,8 @@
 /**
- * OWASP TOP 10
+ * In this file two things are happening:
+ * First of all, controller are initiated, which themselves get the app-Object for necessary App-Configurations for security measures.
+ * Then, the controllers logic is connected with HTTP-Request-Routes to make them available and accessable as soon as the server is running.
+
  * User: david.losert
  * Date: 18.07.2014
  * Time: 14:44
