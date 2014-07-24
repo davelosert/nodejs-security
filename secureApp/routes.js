@@ -10,17 +10,17 @@
 
 
 module.exports = function (app) {
-    var csrf = require('./controller/csrfProtect')(app),
-        mflac = require('./controller/mflacProtect')(app),
-		hpp = require('./controller/hppProtect')(app),
-        user = require('./controller/createUserProtected')(app),
-        dor = require('./controller/dorProtect')(app);
+	var csrf = require('./controller/csrfProtect')(app),
+		mflac = require('./controller/mflacProtect')(app),
+        unvalidatedRedirects = require('./controller/unvalidatedRedirects')(app),
+		hpp = require('./controller/hppProtect')(app);
+        user = require('./controller/createUserProtected')(app);
 
 	/**
 	 * GENERIC ROUTES
 	 */
 	app.get('/', function (req, res) {
-		res.send(200, 'Server is running and listening on Port ' + app.get('port'));
+		res.send(200, 'Secure server is running and listening on Port ' + app.get('port'));
 	});
 
 	app.get('/login', function (req, res) {
@@ -49,7 +49,6 @@ module.exports = function (app) {
 	/**
 	 * Broken Authentication and Session Management
 	 */
-    app.get('/user', user.checkLogInState);
 
 
 	/**
