@@ -25,7 +25,7 @@ var config = require('./config/config');
 // DB CONNECTIONS
 // *************************
 // Load all Models
-var modelPath = 'model';
+var modelPath = path.resolve(__dirname, 'model');
 _.each(fs.readdirSync(modelPath), function (fileName) {
 	require(path.resolve(path.join(modelPath, fileName)));
 });
