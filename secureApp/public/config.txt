@@ -1,0 +1,2 @@
+user: root
+pw: 12345

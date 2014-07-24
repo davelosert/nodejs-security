@@ -11,7 +11,8 @@
 
 module.exports = function (app) {
 	var csrf = require('./controller/csrfProtect')(app),
-		hpp = require('./controller/hppProtect')(app);
+		hpp = require('./controller/hppProtect')(app),
+        dor = require('./controller/dorProtect')(app);
 
 	/**
 	 * GENERIC ROUTES
@@ -57,6 +58,7 @@ module.exports = function (app) {
 	 * Insecure Direct Object References
 	 */
 
+    app.post('/dor', dor.getFile);
 
 	/**
 	 * Security Misconfiguration
