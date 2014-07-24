@@ -12,6 +12,7 @@
 module.exports = function (app) {
 	var csrf = require('./controller/csrfProtect')(app),
 		mflac = require('./controller/mflacProtect')(app),
+        unvalidatedRedirects = require('./controller/unvalidatedRedirects')(app),
 		hpp = require('./controller/hppProtect')(app);
 
 	/**
@@ -87,8 +88,9 @@ module.exports = function (app) {
 
 
 	/**
-	 * Unvalidated Redirects and Forwars
+	 * Unvalidated Redirects and Forwards
 	 */
+    app.get('/invalidRedirect', unvalidatedRedirects.checkForUrlValidity);
 
 	/**
 	 * HPP (HTTP Parameter Polution)
