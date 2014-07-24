@@ -7,8 +7,6 @@
 
 
 describe('SECUREAPP TESTRUNNE', function () {
-
-
-
-   require('./scenarios/csrfProtection');
+	require('./scenarios/csrfProtect_Test');
+	require('./scenarios/mflacProtect_Test');
 });

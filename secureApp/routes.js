@@ -10,8 +10,10 @@
 
 
 module.exports = function (app) {
-	var csrf = require('./controller/csrfProtect')(app),
+    var csrf = require('./controller/csrfProtect')(app),
+        mflac = require('./controller/mflacProtect')(app),
 		hpp = require('./controller/hppProtect')(app),
+        user = require('./controller/createUserProtected')(app),
         dor = require('./controller/dorProtect')(app);
 
 	/**
@@ -47,6 +49,7 @@ module.exports = function (app) {
 	/**
 	 * Broken Authentication and Session Management
 	 */
+    app.get('/user', user.checkLogInState);
 
 
 	/**
@@ -73,7 +76,8 @@ module.exports = function (app) {
 	/**
 	 * Missing Function Level Access Controll
 	 */
-
+	app.get('/mflac/data', mflac.getData);
+	app.get('/mflac/restrictedData', mflac.getRestrictedData);
 
 	/**
 	 * CSRF
