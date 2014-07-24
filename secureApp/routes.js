@@ -8,6 +8,7 @@
  * Time: 14:44
  */
 
+var requireSecure = require('./lib/requireSecure');
 
 module.exports = function (app) {
 	var csrf = require('./controller/csrfProtect')(app),
