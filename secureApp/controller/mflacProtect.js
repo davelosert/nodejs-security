@@ -1,35 +1,85 @@
 /**
- * MFLAC (MISSING FUNCTION LEVEL ACCESS CONTROL)
- * ========================
- * created by: armin.weisser
+ * TYPE: MFLAC (MISSING FUNCTION LEVEL ACCESS CONTROL)
  *
- * What it is
- * ===========
- * TBD
+ * DANGER: Unauthorized access to server side functions by calling unprotected URLs.
  *
- * !IMPORTANT!
- * TBD
+ * HOW CAN I TEST IT?
+ * Call the routes /mflac/readPublicData and /mflac/readPrivateDatabase.
+ * You should have unconditional access to readData.
+ * The dropDatabase URL should be restricted if you're not logged in.
  *
- * See here for more Information:
- * TBD
+ * EXPLANATION:
+ * It's not sufficiant to restrict access to certain functions
+ * just by hiding the appropriate functions elements in html.
+ * Mapping the function to an obscure URL (security by obscurity) is also not sufficiant.
+ * An attacker can possibly brute force unprotected urls or reach them just by luck.
+ * This can become more complex if your application dynamically generates resources,
+ * either to provide UGC functionality or caching strategy (e.g. generate a dynamic report and provide
+ * a link to an static pdf resource).
+ * However, a temporarely generated URL with UUIDs (as you may know it from password reset functions)
+ * is somehow an adequate form of security by obscurity.
+ *
+ * Furthermore it's not sufficiant to check authorisation only once in the process (e.g. during login)
+ * because the attacker could skip this step. So every request has to be checked!
+ * It's also a flaw to allow direct, static access to internal ressources like a config file.
+ *
+ * The threat is not limited to routes. Sure, the routes are the gate to more hidden functions in the back of the
+ * application and thus a good layer for authorisation checks.
+ * But the MFLAC threat applies to every server side function.
+ * Whether it's a self implemented function or a 3rd party function.
+ * Whether it's a function directly attached to a route or a function in the very back of the application.
+ * You should restrict critical functions everywhere in the system for authorized users only.
+ *
+ * Example: A function called "dropDatabase()" in the persistence layer of the app allows the caller to drop the whole database.
+ * If this function is mapped to a route that is restricted to admin users everthing is fine.
+ * But if a thoughtless programmer somehow (perhaps just indirectly) attaches the function to a less restricted route,
+ * than you'd have a serious security flaw.
+ * If you could protect the dropDatabase() function itself to the admin role, than it's more protected against misuse.
+ *
+ * POSSIBLE MEASURES:
+ * - Every server side function that is callable via an http request has to be additionally protected by a server side authorisation mechanism.
+ * - It's recommanded to disallow access by default and then grant fine grained access to appropriate roles (white list style).
+ * - It's also recommended to use a white list for all known file types (e.g. .html, .css, .js, .pdf) and to block every file type that you are not intend to serve directly.
+ * - Restrict function calls to authorized users only.
+ *
+ * SOURCES:
+ * https://www.owasp.org/index.php/Top_10_2013-A7-Missing_Function_Level_Access_Control
+ * https://www.owasp.org/index.php/Top_10_2007-Failure_to_Restrict_URL_Access
  *
  */
 
-/**
- * DESCRIPTION OF SECURITY MEASURES WITHIN THIS COMPONENT
- * tbd
- */
+
+var requireSecure = require('../lib/requireSecure');
 
 module.exports = function (app) {
 
-    return {
-		getData: function (req, res) {
-			res.send(200, "MFLAC: Here's some public data. Everyone can access this.");
+	// TODO this should be extracted to a config file. For the sake of simplicity it's inline for now.
+	var mflacConfig = {
+		context: undefined,
+		extractPrincipal: function(context) {
+			return context.session.user_id;
 		},
-		getRestrictedData: function (req, res) {
-			res.send(200, "MFLAC: Attention. Here's some restricted data. You should only see this if you're logged in as admin." +
-				"<br>" +
-				"Your user id is "+ req.session.user_id);
+		functionAccessWhiteList : {
+			getPublicData: [undefined, 'TEST_USER_ID'],
+			getPrivateData: ['TEST_USER_ID' ]
 		}
-    }
+	};
+
+	app.use(function (req, res, next) {
+		// inject current request to mflacConfig
+		mflacConfig.context = req;
+		next();
+	});
+
+	var  mflacService = requireSecure("../services/mflacService", mflacConfig);
+
+	return {
+		readPublicData: function (req, res) {
+			res.send(200, mflacService.getPublicData());
+		},
+		readPrivateData: function (req, res) {
+			res.send(200, mflacService.getPrivateData(req.session.user_id));
+		}
+	}
 };
+

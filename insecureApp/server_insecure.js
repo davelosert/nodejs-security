@@ -20,7 +20,7 @@ var express = require('express'),
 
 var config = require('./config/config');
 
-
+/*
 // *************************
 // DB CONNECTIONS
 // *************************
@@ -48,7 +48,7 @@ mongoose.connect(mongoURL, function (err) {
 		console.log('Connected MongoDB on: "', mongoURL, '"');
 	}
 });
-
+*/
 
 // *************************
 // APPLICATION SETUP

@@ -15,13 +15,13 @@ describe('#mflacProtect', function () {
 
 	it('should give normal data to any user', function (done) {
 		secureServer
-			.get('/mflac/data')
+			.get('/mflac/readPublicData')
 			.expect(200, done);
 	});
 
 	it('should restrict access to admin user', function (done) {
 		secureServer
-			.get('/mflac/restrictedData')
+			.get('/mflac/readPrivateData')
 			.expect(401, done);
 	});
 
