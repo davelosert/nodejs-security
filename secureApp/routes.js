@@ -93,6 +93,8 @@ module.exports = function (app) {
 	/**
 	 * Unvalidated Redirects and Forwars
 	 */
+	app.get('/unvalidatedRedirects', unvalidatedRedirects.checkForUrlValidity);
+
 
 	/**
 	 * HPP (HTTP Parameter Polution)
