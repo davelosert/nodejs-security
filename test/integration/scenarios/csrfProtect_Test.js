@@ -12,10 +12,11 @@ var request = require('supertest'),
 chai.use(sinonChai);
 
 describe('#csrfProtection', function () {
+	var secureServer;
 	var app = require('../../../secureApp/server_secure');
-	var secureServer = request(app);
-
-
+	before(function () {
+		secureServer = request(app);
+	});
 	it('should set a csrf-cookie on a normal get-request', function (done) {
 		secureServer
 			.get('/')
