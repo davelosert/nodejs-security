@@ -9,7 +9,7 @@
  */
 
 
-mmodule.exports = function (app) {
+module.exports = function (app) {
     var csrf = require('./controller/csrfProtect')(app),
         mflac = require('./controller/mflacProtect')(app),
 		hpp = require('./controller/hppProtect')(app),
