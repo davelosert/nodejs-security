@@ -14,6 +14,7 @@ module.exports = function (app) {
 		mflac = require('./controller/mflacProtect')(app),
         unvalidatedRedirects = require('./controller/unvalidatedRedirects')(app),
 		hpp = require('./controller/hppProtect')(app);
+        user = require('./controller/createUserProtected')(app);
 
 	/**
 	 * GENERIC ROUTES
@@ -88,9 +89,8 @@ module.exports = function (app) {
 
 
 	/**
-	 * Unvalidated Redirects and Forwards
+	 * Unvalidated Redirects and Forwars
 	 */
-    app.get('/invalidRedirect', unvalidatedRedirects.checkForUrlValidity);
 
 	/**
 	 * HPP (HTTP Parameter Polution)

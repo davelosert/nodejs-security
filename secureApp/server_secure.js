@@ -13,6 +13,7 @@ var express = require('express'),
 	url = require('url'),
 	fs = require('fs'),
 	path = require('path'),
+    bcrypt = require('bcrypt'),
 	_ = require('lodash'),
 	mongoose = require('mongoose');
 
@@ -46,6 +47,15 @@ mongoose.connect(mongoURL, function (err) {
 		console.log('Connected MongoDB on: "', mongoURL, '"');
 	}
 });
+User = require('./model/user');
+
+var testUser = new User({
+    username: 'jmar777',
+    pwHash: 'Password123'
+});
+
+// save user to database
+testUser.save(function(err) {});
 
 
 // *************************
