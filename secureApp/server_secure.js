@@ -13,7 +13,6 @@ var express = require('express'),
 	url = require('url'),
 	fs = require('fs'),
 	path = require('path'),
-    bcrypt = require('bcrypt'),
 	_ = require('lodash'),
 	mongoose = require('mongoose');
 
