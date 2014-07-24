@@ -13,10 +13,31 @@ module.exports = function (app) {
 	var csrf = require('./controller/csrfProtect')(app),
 		hpp = require('./controller/hppProtect')(app);
 
-
+	/**
+	 * GENERIC ROUTES
+	 */
 	app.get('/', function (req, res) {
 		res.send(200, 'Server is running and listening on Port ' + app.get('port'));
 	});
+
+	app.get('/login', function (req, res) {
+		req.session.user_id = 'TEST_USER_ID';
+		res.send('You are now logged in!');
+	});
+
+	app.get('/logout', function (req, res) {
+		req.session.destroy(function () {
+			res.send('You are now logged out!');
+		});
+	});
+
+	/**
+	 * ***********************************
+	 * PROTECT-ROUTES
+	 * ***********************************
+	 */
+
+
 	/**
 	 * Injection
 	 */
@@ -73,4 +94,4 @@ module.exports = function (app) {
 	 */
 	app.get('/hpp', hpp.checkTypeOfInputParameters);
 	app.post('/hpp', hpp.checkTypeOfInputParameters);
-}
+};
