@@ -21,30 +21,6 @@
  */
 
 module.exports = function (app) {
-    app.use(function (req, res, next) {
-		// inject authorisation mapping of roles to routes.(AccessControl-List).
-		// Use a declarative json config for this.
-		// -> Timo
-        next();
-    });
-	app.use(function (req, res, next) {
-		// inject authorisation check at route level.
-		// send 401 Unauthorized
-		// -> Timo
-		next();
-	});
-
-	app.use(function (req, res, next) {
-		// inject authorisation mapping of roles to functions.
-		// Use something close to annotations? Better json config
-		next();
-	});
-	app.use(function (req, res, next) {
-		// inject authorisation check at function level.
-		// something like aspect oriented
-		// requireSecure()
-		next();
-	});
 
     return {
 		getData: function (req, res) {
