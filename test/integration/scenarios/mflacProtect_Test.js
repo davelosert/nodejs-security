@@ -9,7 +9,8 @@ var request = require('supertest'),
 	expect = chai.expect;
 chai.use(sinonChai);
 
-describe('#mflacProtect', function () {
+//@todo not ready yet
+xdescribe('#mflacProtect', function () {
 	var app = require('../../../secureApp/server_secure');
 	var secureServer = request(app);
 
