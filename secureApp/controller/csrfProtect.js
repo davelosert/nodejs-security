@@ -28,7 +28,7 @@ var csrf = require('csurf');
 module.exports = function (app) {
     app.use(csrf());
     app.use(function (req, res, next) {
-		res.cookie('XSRF-TOKEN', req.csrfToken());
+		res.cookie('_csrf', req.csrfToken());
         next();
     });
 
