@@ -9,13 +9,13 @@
 // Load Basic Packages & Config
 // *************************
 var express = require('express')
-	,http = require('http')
-	,url = require('url')
-	,fs = require('fs')
-	,path = require('path')
-	,_ = require('lodash')
-	,mongoose = require('mongoose')
-	;
+    , http = require('http')
+    , url = require('url')
+    , fs = require('fs')
+    , path = require('path')
+    , _ = require('lodash')
+    , mongoose = require('mongoose')
+    ;
 
 var config = require('./config/config');
 
@@ -26,38 +26,38 @@ var config = require('./config/config');
 // Load all Models
 var modelPath = path.resolve(__dirname, 'model');
 _.each(fs.readdirSync(modelPath), function (fileName) {
-	require(path.resolve(path.join(modelPath, fileName)));
+    require(path.resolve(path.join(modelPath, fileName)));
 });
 
 // Create URL
 var mongoURL = url.format({
-	protocol: 'mongodb',
-	slashes : true,
-	hostname: config.mongoDB.host,
-	port    : config.mongoDB.port,
-	pathname: config.mongoDB.dbName
+    protocol: 'mongodb',
+    slashes: true,
+    hostname: config.mongoDB.host,
+    port: config.mongoDB.port,
+    pathname: config.mongoDB.dbName
 });
 
 // Connect MongoDB
 mongoose.connect(mongoURL, function (err) {
-	if (err) {
-		console.error('Mongo-Connection Failed with error:', err);
-	}
-	else {
-		console.log('Connected MongoDB on: "', mongoURL, '"');
-	}
+    if (err) {
+        console.error('Mongo-Connection Failed with error:', err);
+    }
+    else {
+        console.log('Connected MongoDB on: "', mongoURL, '"');
+    }
 });
 /*
-User = require('./model/user');
+ User = require('./model/user');
 
-var testUser = new User({
-    username: 'jmar777',
-    pwHash: 'Password123'
-});
+ var testUser = new User({
+ username: 'jmar777',
+ pwHash: 'Password123'
+ });
 
-// save user to database
-testUser.save(function(err) {});
-*/
+ // save user to database
+ testUser.save(function(err) {});
+ */
 
 // *************************
 // APPLICATION SETUP
@@ -68,10 +68,16 @@ appSecure.set('port', process.env.port || 3334);
 require('./config/secure_express')(appSecure);
 require('./routes')(appSecure);
 
+// @todo super basic exception handler to prevent large stack traces. needs to be replaced by a "real" one
+appSecure.use(function (err, req, res, next) {
+    console.error(err);
+    next();
+});
+
 // *************************
 // APP SERVER INSTANCE
 // *************************
 module.exports = appSecure;
 appSecure.listen(appSecure.get('port'), function () {
-	console.log('Secure Server listening on port ' + appSecure.get('port'));
+    console.log('Secure Server listening on port ' + appSecure.get('port'));
 });
