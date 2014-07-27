@@ -71,6 +71,7 @@ require('./routes')(appSecure);
 // @todo super basic exception handler to prevent large stack traces. needs to be replaced by a "real" one
 appSecure.use(function (err, req, res, next) {
     console.error(err);
+    res.send(500);
     next();
 });
 
