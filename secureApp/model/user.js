@@ -7,20 +7,20 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 
-SALT_WORK_FACTOR = 10,
-MAX_LOGIN_ATTEMPTS = 5,
-LOCK_TIME = 2 * 60 * 60 * 1000;
+var SALT_WORK_FACTOR = 10,
+    MAX_LOGIN_ATTEMPTS = 5,
+    LOCK_TIME = 2 * 60 * 60 * 1000;
 
 var userSchema = new Schema({
-	username: { type: String, required: true, index: { unique: true } },
-	pwHash  : String,
-	salt    : String,
+    username: { type: String, required: true, index: { unique: true } },
+    pwHash: String,
+    salt: String,
     loginAttempts: { type: Number, required: true, default: 0 },
     lockUntil: { type: Number }
 });
 
 //Salt pw and save it to the db
-userSchema.pre('save', function(next) {
+userSchema.pre('save', function (next) {
     var user = this;
 
     // only hash the password if it has been modified (or is new)
@@ -28,34 +28,34 @@ userSchema.pre('save', function(next) {
 
     // generate a salt
     /*bcrypt.genSalt(SALT_WORK_FACTOR, function(err, salt) {
-        if (err) return next(err);
+     if (err) return next(err);
 
-        // hash the password using our new salt
-        bcrypt.hash(user.pwHash, salt, function(err, hash) {
-            if (err) return next(err);
-            // override the cleartext password with the hashed one
-            user.pwHash = hash;
-            next();
-        });
-    });
-	*/
+     // hash the password using our new salt
+     bcrypt.hash(user.pwHash, salt, function(err, hash) {
+     if (err) return next(err);
+     // override the cleartext password with the hashed one
+     user.pwHash = hash;
+     next();
+     });
+     });
+     */
 });
 
 //Compare PW with the salts
-userSchema.methods.comparePassword = function(candidatePassword, cb) {
+userSchema.methods.comparePassword = function (candidatePassword, cb) {
     /*bcrypt.compare(candidatePassword, this.pwHash, function(err, isMatch) {
-        if (err) return cb(err);
-        cb(null, isMatch);
-    });
-    */
+     if (err) return cb(err);
+     cb(null, isMatch);
+     });
+     */
 };
 
-userSchema.virtual('isLocked').get(function() {
+userSchema.virtual('isLocked').get(function () {
     // check for a future lockUntil timestamp
     return !!(this.lockUntil && this.lockUntil > Date.now());
 });
 
-userSchema.methods.incLoginAttempts = function(cb) {
+userSchema.methods.incLoginAttempts = function (cb) {
     // if we have a previous lock that has expired, restart at 1
     if (this.lockUntil && this.lockUntil < Date.now()) {
         return this.update({
@@ -72,8 +72,8 @@ userSchema.methods.incLoginAttempts = function(cb) {
     return this.update(updates, cb);
 };
 
-userSchema.statics.getAuthenticated = function(username, password, cb) {
-    this.findOne({ username: username }, function(err, user) {
+userSchema.statics.getAuthenticated = function (username, password, cb) {
+    this.findOne({ username: username }, function (err, user) {
         if (err) return cb(err);
 
         // make sure the user exists
@@ -84,14 +84,14 @@ userSchema.statics.getAuthenticated = function(username, password, cb) {
         // check if the account is currently locked
         if (user.isLocked) {
             // just increment login attempts if account is already locked
-            return user.incLoginAttempts(function(err) {
+            return user.incLoginAttempts(function (err) {
                 if (err) return cb(err);
                 return cb(null, null, reasons.MAX_ATTEMPTS);
             });
         }
 
         // test for a matching password
-        user.comparePassword(password, function(err, isMatch) {
+        user.comparePassword(password, function (err, isMatch) {
             if (err) return cb(err);
 
             // check if the password was a match
@@ -103,14 +103,14 @@ userSchema.statics.getAuthenticated = function(username, password, cb) {
                     $set: { loginAttempts: 0 },
                     $unset: { lockUntil: 1 }
                 };
-                return user.update(updates, function(err) {
+                return user.update(updates, function (err) {
                     if (err) return cb(err);
                     return cb(null, user);
                 });
             }
 
             // password is incorrect, so increment login attempts before responding
-            user.incLoginAttempts(function(err) {
+            user.incLoginAttempts(function (err) {
                 if (err) return cb(err);
                 return cb(null, null, reasons.PASSWORD_INCORRECT);
             });
