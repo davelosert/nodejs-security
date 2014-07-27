@@ -8,7 +8,7 @@
 var config = {
 	'development': {
 		'mongoDB': {
-			host: '192.168.2.105',
+			host: 'localhost',
 			port  : 27017,
 			dbName: 'secureApp'
 		}
