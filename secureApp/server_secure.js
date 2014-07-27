@@ -14,7 +14,7 @@ var express = require('express')
 	,fs = require('fs')
 	,path = require('path')
 	,_ = require('lodash')
-	//,mongoose = require('mongoose')
+	,mongoose = require('mongoose')
 	;
 
 var config = require('./config/config');
@@ -39,7 +39,7 @@ var mongoURL = url.format({
 });
 
 // Connect MongoDB
-/*mongoose.connect(mongoURL, function (err) {
+mongoose.connect(mongoURL, function (err) {
 	if (err) {
 		console.error('Mongo-Connection Failed with error:', err);
 	}
@@ -47,6 +47,7 @@ var mongoURL = url.format({
 		console.log('Connected MongoDB on: "', mongoURL, '"');
 	}
 });
+/*
 User = require('./model/user');
 
 var testUser = new User({

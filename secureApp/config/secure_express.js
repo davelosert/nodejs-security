@@ -29,9 +29,9 @@ module.exports = function (app) {
 	app.use(cookieParser('s3cr3t'));
 	app.use(session({
 		secret: 's3cr3t',
-		/*store : new mongoStore({
+		store : new mongoStore({
 			mongoose_connection: mongoose.connections[0]
-		}),*/
+		}),
         key: 'sessionId' // use generic session-cookie name, else it would be "connectSid", revealing your used framework
 	}));
 };
