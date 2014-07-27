@@ -16,10 +16,8 @@ var Cookie = require('tough-cookie'),
     _ = require('lodash'),
     mongoose = require('mongoose');
 
-// @todo not working yet becuase of weird behaviour with session storage.
 describe('#csrfProtection', function () {
     var app = require('../../../secureApp/server_secure');
-
     var secureServer;
     before(function (done) {
         secureServer = request(app);
@@ -47,8 +45,8 @@ describe('#csrfProtection', function () {
     });
 
     describe('CSRF-Token use', function () {
-       var csrfCookie,
-           sessionCookie;
+        var csrfCookie,
+            sessionCookie;
 
         it('should recieve another token', function (done) {
             secureServer
@@ -61,17 +59,15 @@ describe('#csrfProtection', function () {
         });
 
         it('should allow access with a valid token', function (done) {
-            secureServer
-                .post('/csrf')
-                        .set('Cookie', sessionCookie.cookieString())
-                .set('Content-Type', 'application/json')
-                .send({"_csrf": csrfCookie.value, test: 'test'})
-                .end(function (err, res2) {
-                    if (err) console.error(err);
-                    console.log(res2.text);
-                    expect(res2.status).to.equal(200);
-                    done();
-                });
+                secureServer
+                    .post('/csrf')
+                    .set('Cookie', sessionCookie.cookieString())
+                    .set('Content-Type', 'application/json')
+                    .send({"_csrf": csrfCookie.value, test: 'test'})
+                    .end(function (err, res2) {
+                        expect(res2.status).to.equal(200);
+                        done();
+                    });
         });
     });
 });
