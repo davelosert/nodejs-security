@@ -26,6 +26,9 @@ Every step of the chosen Protection-Technique should be explained in detail with
 
 PLANS & IDEAS
 =================
+- **Secure Against ASVS Level 3**
+The [OWASP's ASVS Document](https://drive.google.com/folderview?id=0B0FGUBuaH0m0WWxVYXREU2hKYUU&usp=sharing#) provides a tool for measurment of an Application's Security. The appSecure could or should meet the Level 3 requirements.
+
 - **Use AngularJS:**
 Since this gonna be a security-boilerplate for an WebApp, and since i think a WebApp defines itself by not rendering
 Views serverside like "in the old days", I wanna build a dynamic AngularJS in the Frontend and handle all Data-Transfer via AJAX or

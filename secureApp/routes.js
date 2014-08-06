@@ -8,13 +8,13 @@
  * Time: 14:44
  */
 
-
 module.exports = function (app) {
-	var csrf = require('./controller/csrfProtect')(app),
-		mflac = require('./controller/mflacProtect')(app),
-        unvalidatedRedirects = require('./controller/unvalidatedRedirects')(app),
-		hpp = require('./controller/hppProtect')(app),
-        user = require('./controller/createUserProtected')(app);
+	var csrf = require('./controller/csrfProtect')(app)
+		,mflac = require('./controller/mflacProtect')(app)
+		,unvalidatedRedirects = require('./controller/unvalidatedRedirects')(app)
+		,hpp = require('./controller/hppProtect')(app)
+		//,user = require('./controller/createUserProtected')(app)
+		;
 
 	/**
 	 * GENERIC ROUTES
@@ -49,8 +49,7 @@ module.exports = function (app) {
 	/**
 	 * Broken Authentication and Session Management
 	 */
-
-    app.get('/user', user.checkLogInState);
+    //app.get('/user', user.checkLogInState);
 
 
 	/**
@@ -77,8 +76,8 @@ module.exports = function (app) {
 	/**
 	 * Missing Function Level Access Controll
 	 */
-	app.get('/mflac/data', mflac.getData);
-	app.get('/mflac/restrictedData', mflac.getRestrictedData);
+	app.get('/mflac/readPublicData', mflac.readPublicData);
+	app.get('/mflac/readPrivateData', mflac.readPrivateData);
 
 	/**
 	 * CSRF
@@ -94,6 +93,8 @@ module.exports = function (app) {
 	/**
 	 * Unvalidated Redirects and Forwars
 	 */
+	app.get('/unvalidatedRedirects', unvalidatedRedirects.checkForUrlValidity);
+
 
 	/**
 	 * HPP (HTTP Parameter Polution)

@@ -22,30 +22,30 @@
  * DESCRIPTION OF SECURITY MEASURES WITHIN THIS COMPONENT
  * For this reason, the csurf-middleware does NOT validate CSRF for GET-Request.
  */
+var _ = require('lodash');
 
-var validUrls = {
-    "google": "www.google.de",
-    "postillon": "www.der-postillon.com",
-    "vi": "www.virtual-identity.com"
-};
+var validUrls = [
+	"www.google.de",
+	"www.der-postillon.com",
+	"www.virtual-identity.com"];
 
 module.exports = function (app) {
 
-    return {
-        // http://localhost:3334/invalidRedirect?url=www.google.de
-        checkForUrlValidity: function (req, res) {
-            if (!req.query || !req.query.url) {
-                res.send(400);
-            } else {
-                var redirectUrl = req.query.url;
-                for(var entry in validUrls) {
-                    if (redirectUrl == validUrls[entry]) {
-                        res.send(200);
-                    } else {
-                        res.send(400);
-                    }
-                }
-            }
-        }
-    }
+	return {
+		// http://localhost:3334/invalidRedirect?url=www.google.de
+		checkForUrlValidity: function (req, res) {
+			if (!req.query || !req.query.url) {
+				res.send(400);
+			}
+			else {
+				var redirectUrl = req.query.url;
+				if (_.contains(validUrls, redirectUrl)) {
+					res.send(200); // @todo implement redirect
+				}
+				else {
+					res.send(400);
+				}
+			}
+		}
+	}
 };

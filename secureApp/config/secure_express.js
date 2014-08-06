@@ -12,8 +12,7 @@ var express = require('express'),
 	session = require('express-session'),
 	methodOverride = require('method-override'),
 	mongoStore = require('connect-mongo')(session),
-	mongoose = require('mongoose'),
-    bcrypt = require('bcrypt');
+	mongoose = require('mongoose');
 
 var config = require('./config');
 module.exports = function (app) {
@@ -33,6 +32,6 @@ module.exports = function (app) {
 		store : new mongoStore({
 			mongoose_connection: mongoose.connections[0]
 		}),
-        key: 'sessionId', // use generic session-cookie name, else it would be "connectSid", revealing your used framework
+        key: 'sessionId' // use generic session-cookie name, else it would be "connectSid", revealing your used framework
 	}));
 };
